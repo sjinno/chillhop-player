@@ -1,9 +1,12 @@
-const SongInfo = () => {
+import { FC } from "react";
+import {Song} from '../data/musicData';
+
+const SongInfo: FC<Song> = (currentSong): JSX.Element => {
     return (
         <div className="songInfo">
-            <img className="songInfo__cover" src="https://dummyimage.com/400x400/000/fff" alt="" />
-            <h2 className="songInfo__song">Song name</h2>
-            <h3 className="songInfo__artist">Artist name</h3>
+            <img className="songInfo__cover" src={currentSong.cover} alt="cover" />
+            <h2 className="songInfo__song">{currentSong.name}</h2>
+            <h3 className="songInfo__artist">{currentSong.artist}</h3>
         </div>
     );
 };

@@ -1,6 +1,17 @@
 import { v4 as uuidv4 } from 'uuid';
 
-const getMusicData = () => {
+interface Song {
+    name: string,
+    cover: string,
+    artist: string,
+    audio: string,
+    color: string[],
+    id: string,
+    active: boolean
+}
+
+
+function getMusicData(): Song[] {
     return [{
             name: "Beaver Creek",
             cover: "https://chillhop.com/wp-content/uploads/2020/09/0255e8b8c74c90d4a27c594b3452b2daafae608d-1024x1024.jpg",
@@ -60,3 +71,4 @@ const getMusicData = () => {
 }
 
 export default getMusicData;
+export type { Song };

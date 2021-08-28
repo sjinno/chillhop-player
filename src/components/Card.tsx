@@ -5,12 +5,12 @@ import getMusicData from '../data/musicData';
 
 const Card = () => {
     const [data, setData] = useState(getMusicData());
-    const [currentSong, setCurrentSong] = useState(data[0]);
+    const [currentSong, setCurrentSong] = useState(data[1]);
 
     return (
         <div className="card">
             <div className="card__top">
-                <SongInfo />
+                <SongInfo {...currentSong} />
             </div>
             <div className="card__bottom">
                 <Player />

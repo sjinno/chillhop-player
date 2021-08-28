@@ -12,4 +12,6 @@ body {
     font-family: $ssfamily;
     font-size: 1.3rem;
     color: $clrBlack;
+    background-color: rgba($clrRed, .8);
+    z-index: -1;
 }

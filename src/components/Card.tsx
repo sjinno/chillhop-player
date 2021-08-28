@@ -13,7 +13,7 @@ const Card = () => {
                 <SongInfo {...currentSong} />
             </div>
             <div className="card__bottom">
-                <Player />
+                <Player {...currentSong} />
             </div>
         </div>
     );

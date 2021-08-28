@@ -1,16 +1,30 @@
 import { FC, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLessThan, faGreaterThan, faPlayCircle } from '@fortawesome/free-solid-svg-icons';
-import { Song } from '../data/musicData';
 
-const Player: FC<Song> = ({audio}) => {
+interface Props {
+    audio: string,
+    isPlaying: boolean,
+    setIsPlaying: any,
+}
+
+const Player: FC<Props> = ({audio, isPlaying, setIsPlaying}) => {
     // Ref
-    const audioRef = useRef(null);
+    const audioRef = useRef<HTMLAudioElement>(null);
 
     // EVENT HANDLERS ==========
     // Play song
     const playSongHandler = () => {
-        console.log(audioRef.current);
+        // console.log(audioRef.current);
+        if (audioRef.current) {
+            if (isPlaying) {
+                audioRef.current.pause();
+                setIsPlaying(false);
+            } else {
+                audioRef.current.play();
+                setIsPlaying(true);
+            }
+        }
     };
 
     return (

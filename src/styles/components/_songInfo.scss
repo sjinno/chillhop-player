@@ -1,0 +1,21 @@
+.songInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &__cover {
+        width: 90%;
+        height: 90%;
+        border-radius: 50%;
+    }
+
+    &__song {
+        padding: 3rem 0 2rem 0;
+        font-size: 2.8rem;
+    }
+
+    &__artist {
+
+    }
+}

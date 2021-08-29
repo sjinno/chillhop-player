@@ -1,17 +1,17 @@
-@mixin table {
-    @media screen and (min-width: 76.8rem) {
+@mixin tablet {
+    @media screen and (min-width: 48rem) {
         @content;
     }
 }
 
 @mixin desktop {
-    @media screen and (min-wdith: 102.4rem) {
+    @media screen and (min-wdith: 64rem) {
         @content;
     }
 }
 
 @mixin landscape {
-    @media screen and (orientation: landscape) {
+    @media screen and (max-width: 48rem) and (orientation: landscape) {
         @content;
     }
 }

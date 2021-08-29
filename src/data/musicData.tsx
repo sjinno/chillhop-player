@@ -10,7 +10,6 @@ interface Song {
     active: boolean
 }
 
-
 function getMusicData(): Song[] {
     return [{
             name: "Beaver Creek",

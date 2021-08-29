@@ -1,6 +1,5 @@
 import { FC } from "react";
-import {Song} from '../data/musicData';
-
+import { Song } from '../data/musicData';
 
 const SongInfo: FC<Song> = ({ name, artist, cover }) => {
     return (

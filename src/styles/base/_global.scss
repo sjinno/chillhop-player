@@ -6,6 +6,10 @@
 
 html {
     font-size: 62.5%;
+
+    @include tablet {
+        font-size: 69%;
+    }
 }
 
 body {

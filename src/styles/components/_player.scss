@@ -1,5 +1,8 @@
 .player {
     padding-top: 3rem;
+    width: 95%;
+    max-width: 69rem;
+    margin: 0 auto;
 
     &__time-control {
         display: flex;
@@ -7,9 +10,6 @@
         align-items: center;
 
         padding-bottom: 4.2rem;
-
-        width: 95%;
-        margin: 0 auto;
 
         * {
             padding: 0 1rem;

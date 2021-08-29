@@ -7,7 +7,14 @@
     &__cover {
         width: 90%;
         height: 90%;
+        max-width: 60rem;
+        max-height: 60rem;
         border-radius: 50%;
+
+        // @include tablet {
+        //     width: 69.12rem;
+        //     height: 69.12rem;
+        // }
     }
 
     &__song {

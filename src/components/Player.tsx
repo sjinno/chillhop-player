@@ -13,7 +13,7 @@ const Player: FC<Props> = ({ audio, isPlaying, setIsPlaying }) => {
     const [playButton, setPlayButton] = useState(faPlayCircle);
 
     // Ref
-    const audioRef = useRef<HTMLAudioElement>(null);
+    const audioRef = useRef<HTMLAudioElement | null>(null);
 
     // EVENT HANDLERS ==========
     // Play song

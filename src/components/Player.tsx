@@ -8,17 +8,10 @@ interface PlayerStatus {
     setIsPlaying: any,
 }
 
-// interface SongInfo {
-//     currentTime?: number,
-//     duration?: number,
-// }
-
 const Player: FC<PlayerStatus> = ({ audio, isPlaying, setIsPlaying }): JSX.Element => {
     // State
-    const [playButton, setPlayButton] = useState(faPlayCircle);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
-    // const [songInfo, setSongInfo] = useState<SongInfo | null>({} as SongInfo);
 
     // Ref
     const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -31,11 +24,9 @@ const Player: FC<PlayerStatus> = ({ audio, isPlaying, setIsPlaying }): JSX.Eleme
             if (isPlaying) {
                 audioRef.current.pause();
                 setIsPlaying(false);
-                setPlayButton(faPlayCircle);
             } else {
                 audioRef.current.play();
                 setIsPlaying(true);
-                setPlayButton(faPauseCircle);
             }
         }
     };
@@ -84,7 +75,12 @@ const Player: FC<PlayerStatus> = ({ audio, isPlaying, setIsPlaying }): JSX.Eleme
             </div>
             <div className="player__control">
                 <FontAwesomeIcon className="player__control__skip-back" size="2x" icon={faLessThan} />
-                <FontAwesomeIcon onClick={playSongHandler} className="player__control__play" size="3x" icon={playButton} />
+                <FontAwesomeIcon 
+                    onClick={playSongHandler}
+                    className="player__control__play"
+                    size="3x"
+                    icon={isPlaying ? faPauseCircle : faPlayCircle}
+                />
                 <FontAwesomeIcon className="player__control__skip-forward" size="2x" icon={faGreaterThan} />
                 <audio onTimeUpdate={timeUpdatedHandler} onLoadedMetadata={initialSongMetaDataHandler} ref={audioRef} src={audio}></audio>
             </div>

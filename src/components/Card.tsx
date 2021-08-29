@@ -4,8 +4,8 @@ import Player from "./Player";
 import getMusicData from '../data/musicData';
 
 const Card = (): JSX.Element => {
-    const [data, setData] = useState(getMusicData());
-    const [currentSong, setCurrentSong] = useState(data[1]);
+    const [data, _setData] = useState(getMusicData());
+    const [currentSong, _setCurrentSong] = useState(data[1]);
     const [isPlaying, setIsPlaying] = useState(false);
 
     return (

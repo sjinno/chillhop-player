@@ -1,0 +1,17 @@
+@mixin table {
+    @media screen and (min-width: 76.8rem) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media screen and (min-wdith: 102.4rem) {
+        @content;
+    }
+}
+
+@mixin landscape {
+    @media screen and (orientation: landscape) {
+        @content;
+    }
+}

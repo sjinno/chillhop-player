@@ -1,7 +1,8 @@
 import { FC } from "react";
 import {Song} from '../data/musicData';
 
-const SongInfo: FC<Song> = ({name, artist, cover}) => {
+
+const SongInfo: FC<Song> = ({ name, artist, cover }) => {
     return (
         <div className="songInfo">
             <img className="songInfo__cover" src={cover} alt="cover" />

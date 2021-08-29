@@ -17,6 +17,7 @@
 
         input {
             flex-grow: 1;
+            cursor: pointer;
         }
     }
 
@@ -27,5 +28,7 @@
 
         width: 75%;
         margin: 0 auto;
+
+        cursor: pointer;
     }
 }

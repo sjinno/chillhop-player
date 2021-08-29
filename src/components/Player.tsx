@@ -1,6 +1,6 @@
-import { FC, useRef } from 'react';
+import { FC, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLessThan, faGreaterThan, faPlayCircle } from '@fortawesome/free-solid-svg-icons';
+import { faLessThan, faGreaterThan, faPlayCircle, faPauseCircle } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
     audio: string,
@@ -8,7 +8,10 @@ interface Props {
     setIsPlaying: any,
 }
 
-const Player: FC<Props> = ({audio, isPlaying, setIsPlaying}) => {
+const Player: FC<Props> = ({ audio, isPlaying, setIsPlaying }) => {
+    // State
+    const [playButton, setPlayButton] = useState(faPlayCircle);
+
     // Ref
     const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -20,9 +23,11 @@ const Player: FC<Props> = ({audio, isPlaying, setIsPlaying}) => {
             if (isPlaying) {
                 audioRef.current.pause();
                 setIsPlaying(false);
+                setPlayButton(faPlayCircle);
             } else {
                 audioRef.current.play();
                 setIsPlaying(true);
+                setPlayButton(faPauseCircle);
             }
         }
     };
@@ -36,7 +41,7 @@ const Player: FC<Props> = ({audio, isPlaying, setIsPlaying}) => {
             </div>
             <div className="player__control">
                 <FontAwesomeIcon className="player__control__skip-back" size="2x" icon={faLessThan} />
-                <FontAwesomeIcon onClick={playSongHandler} className="player__control__play" size="3x" icon={faPlayCircle} />
+                <FontAwesomeIcon onClick={playSongHandler} className="player__control__play" size="3x" icon={playButton} />
                 <FontAwesomeIcon className="player__control__skip-forward" size="2x" icon={faGreaterThan} />
                 <audio ref={audioRef} src={audio}></audio>
             </div>

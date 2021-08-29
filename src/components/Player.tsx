@@ -53,8 +53,13 @@ const Player: FC<PlayerStatus> = ({ audio, isPlaying, setIsPlaying }): JSX.Eleme
         setDuration(sec);
     };
 
-    const songProgressHandler = (evt: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(evt);
+    const dragHandler = (evt: React.ChangeEvent<HTMLInputElement>) => {
+        // console.log(evt.target.value);
+        const value = parseInt(evt.target.value);
+        if (audioRef.current) {
+            audioRef.current.currentTime = value;
+        }
+        setCurrentTime(value);
     };
     // HANDLERS END HERE ==========
 
@@ -66,7 +71,15 @@ const Player: FC<PlayerStatus> = ({ audio, isPlaying, setIsPlaying }): JSX.Eleme
         <div className="player">
             <div className="player__time-control">
                 <p>{formatTime(currentTime)}</p>
-                <input min="0" max={Math.round(duration)} readOnly value={currentTime} type="range" name="progress" id="currentTime" />
+                <input
+                    min="0"
+                    max={Math.round(duration)}
+                    value={currentTime}
+                    type="range"
+                    name="progress"
+                    id="currentTime"
+                    onChange={dragHandler}
+                />
                 <p>{formatTime(duration)}</p>
             </div>
             <div className="player__control">

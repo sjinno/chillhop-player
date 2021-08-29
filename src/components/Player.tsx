@@ -1,16 +1,24 @@
-import { FC, useRef, useState } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLessThan, faGreaterThan, faPlayCircle, faPauseCircle } from '@fortawesome/free-solid-svg-icons';
 
-interface Props {
+interface PlayerStatus {
     audio: string,
     isPlaying: boolean,
     setIsPlaying: any,
 }
 
-const Player: FC<Props> = ({ audio, isPlaying, setIsPlaying }) => {
+// interface SongInfo {
+//     currentTime?: number,
+//     duration?: number,
+// }
+
+const Player: FC<PlayerStatus> = ({ audio, isPlaying, setIsPlaying }): JSX.Element => {
     // State
     const [playButton, setPlayButton] = useState(faPlayCircle);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [duration, setDuration] = useState(0);
+    // const [songInfo, setSongInfo] = useState<SongInfo | null>({} as SongInfo);
 
     // Ref
     const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -32,18 +40,40 @@ const Player: FC<Props> = ({ audio, isPlaying, setIsPlaying }) => {
         }
     };
 
+    const timeUpdatedHandler = (evt: React.ChangeEvent<HTMLAudioElement>) => {
+        // console.log(evt);
+        // console.log(evt.target.currentTime);
+        const sec = evt.target.currentTime;
+        setCurrentTime(sec);
+    };
+
+    const initialSongMetaDataHandler = (evt: React.ChangeEvent<HTMLAudioElement>) => {
+        // console.log(evt.target.duration);
+        const sec = evt.target.duration;
+        setDuration(sec);
+    };
+
+    const songProgressHandler = (evt: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(evt);
+    };
+    // HANDLERS END HERE ==========
+
+    const formatTime = (sec: number): string => {
+        return Math.floor(sec / 60) + ':' + ('0' + Math.floor(sec % 60)).slice(-2);
+    };
+
     return (
         <div className="player">
             <div className="player__time-control">
-                <p>Start Time</p>
-                <input type="range" name="" id="" />
-                <p>End Time</p>
+                <p>{formatTime(currentTime)}</p>
+                <input min="0" max={Math.round(duration)} readOnly value={currentTime} type="range" name="progress" id="currentTime" />
+                <p>{formatTime(duration)}</p>
             </div>
             <div className="player__control">
                 <FontAwesomeIcon className="player__control__skip-back" size="2x" icon={faLessThan} />
                 <FontAwesomeIcon onClick={playSongHandler} className="player__control__play" size="3x" icon={playButton} />
                 <FontAwesomeIcon className="player__control__skip-forward" size="2x" icon={faGreaterThan} />
-                <audio ref={audioRef} src={audio}></audio>
+                <audio onTimeUpdate={timeUpdatedHandler} onLoadedMetadata={initialSongMetaDataHandler} ref={audioRef} src={audio}></audio>
             </div>
         </div>
     );

@@ -1,6 +1,6 @@
 .player {
     padding-top: 3rem;
-    width: 95%;
+    width: 90%;
     max-width: 69rem;
     margin: 0 auto;
 
@@ -11,8 +11,11 @@
 
         padding-bottom: 4.2rem;
 
-        * {
+        *:not(input) {
             padding: 0 1rem;
+            font-family: $ttfamily;
+            // font-weight: 600;
+            font-size: 1.41421356rem;
         }
 
         input {
@@ -26,7 +29,7 @@
         justify-content: space-around;
         align-items: center;
 
-        width: 75%;
+        width: 80%;
         margin: 0 auto;
 
         cursor: pointer;

@@ -1,11 +1,10 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import SongInfo from "./SongInfo";
 import Player from "./Player";
-import getMusicData from '../data/musicData';
+import { Song } from '../data/musicData';
 
-const Card = (): JSX.Element => {
-    const [data, _setData] = useState(getMusicData());
-    const [currentSong, _setCurrentSong] = useState(data[1]);
+
+const Card: FC<Song> = (currentSong): JSX.Element => {
     const [isPlaying, setIsPlaying] = useState(false);
 
     return (

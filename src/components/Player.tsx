@@ -75,14 +75,19 @@ const Player: FC<PlayerStatus> = ({ audio, isPlaying, setIsPlaying }): JSX.Eleme
             </div>
             <div className="player__control">
                 <FontAwesomeIcon className="player__control__skip-back" size="2x" icon={faLessThan} />
-                <FontAwesomeIcon 
+                <FontAwesomeIcon
                     onClick={playSongHandler}
                     className="player__control__play"
                     size="3x"
                     icon={isPlaying ? faPauseCircle : faPlayCircle}
                 />
                 <FontAwesomeIcon className="player__control__skip-forward" size="2x" icon={faGreaterThan} />
-                <audio onTimeUpdate={timeUpdatedHandler} onLoadedMetadata={initialSongMetaDataHandler} ref={audioRef} src={audio}></audio>
+                <audio
+                    onTimeUpdate={timeUpdatedHandler}
+                    onLoadedMetadata={initialSongMetaDataHandler}
+                    ref={audioRef}
+                    src={audio}>
+                </audio>
             </div>
         </div>
     );

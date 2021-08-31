@@ -4,6 +4,20 @@
     padding: 0;
 }
 
+*::-webkit-scrollbar {
+    width: .314rem;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgba($clrBlack, .85);
+    border-radius: 4.2rem;
+    border: transparent;
+}
+
 html {
     font-size: 62.5%;
 

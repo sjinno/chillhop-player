@@ -8,7 +8,7 @@ interface PlayerStatus {
     setIsPlaying: any,
 }
 
-const Player: FC<PlayerStatus> = ({ audio, isPlaying, setIsPlaying }): JSX.Element => {
+const Player: FC<PlayerStatus> = ({ audio, isPlaying, setIsPlaying }: PlayerStatus): JSX.Element => {
     // State
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);

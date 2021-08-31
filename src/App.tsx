@@ -7,19 +7,17 @@ import getMusicData, { Song } from './data/musicData';
 
 import Card from './components/Card';
 import Library from './components/Library';
+import { open } from 'fs';
 
 function App(): JSX.Element {
   const [data, _setData] = useState<Song[]>(getMusicData());
   const [currentSong, _setCurrentSong] = useState<Song>(data[1]);
-
-  // data.forEach((song) => console.log(song));
-
-  // console.log(data);
+  const [openLib, setOpenLib] = useState<boolean>(false);
 
   return (
     <div className="App">
-      <Card {...currentSong} />
-      <Library data={data} />
+      <Card currentSong={currentSong} openLib={openLib} setOpenLib={setOpenLib} />
+      <Library songs={data} openLib={openLib} />
     </div>
   );
 }

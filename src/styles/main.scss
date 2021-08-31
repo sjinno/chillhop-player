@@ -4,6 +4,9 @@
 @import 'base/mixins';
 @import 'base/global';
 
+@import 'components/click';
 @import 'components/card';
 @import 'components/songInfo';
 @import 'components/player';
+@import 'components/library';
+@import 'components/librarySong';

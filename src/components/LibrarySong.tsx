@@ -2,11 +2,14 @@ import { FC } from 'react';
 import { Song } from '../data/musicData';
 
 
-const LibrarySong: FC<Song> = (song): JSX.Element => {
+const LibrarySong: FC<Song> = (song: Song): JSX.Element => {
     return (
-        <div>
-            <h1>{song.artist}</h1>
-            <h2>{song.name}</h2>
+        <div className="librarySong">
+            <img src={song.cover} alt={song.name} />
+            <div className="librarySong__description">
+                <h2 className="librarySong__name">{song.name}</h2>
+                <h3>{song.artist}</h3>
+            </div>
         </div>
     );
 };

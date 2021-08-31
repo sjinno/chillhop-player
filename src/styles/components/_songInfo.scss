@@ -11,6 +11,13 @@
         max-height: 51rem;
         border-radius: 50%;
 
+        // &:hover {
+        //     box-shadow: .01rem .01rem 2.5rem rgba($clrYellow, .2),
+        //               -.01rem -.01rem 2.5rem rgba($clrYellow, .2),
+        //               .01rem -.01rem 2.5rem rgba($clrYellow, .2),
+        //               -.01rem .01rem 2.5rem rgba($clrYellow, .2);
+        // }
+
         // @include tablet {
         //     width: 69.12rem;
         //     height: 69.12rem;
@@ -20,9 +27,5 @@
     &__song {
         padding: 3rem 0 2rem 0;
         font-size: 2.8rem;
-    }
-
-    &__artist {
-
     }
 }

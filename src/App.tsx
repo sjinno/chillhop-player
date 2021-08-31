@@ -10,13 +10,24 @@ import Library from './components/Library';
 import { open } from 'fs';
 
 function App(): JSX.Element {
-  const [data, _setData] = useState<Song[]>(getMusicData());
-  const [currentSong, _setCurrentSong] = useState<Song>(data[1]);
+  const data: Song[] = getMusicData();
+  const [songIdx, setSongIdx] = useState<number>(0);
+  const [currentSong, setCurrentSong] = useState<Song>(data[songIdx]);
   const [openLib, setOpenLib] = useState<boolean>(false);
+  const maxDataIdx = data.length;
 
   return (
     <div className="App">
-      <Card currentSong={currentSong} openLib={openLib} setOpenLib={setOpenLib} />
+      <Card
+        data={data}
+        currentSong={currentSong}
+        setCurrentSong={setCurrentSong}
+        openLib={openLib}
+        setOpenLib={setOpenLib}
+        songIdx={songIdx}
+        setSongIdx={setSongIdx}
+        maxDataIdx={maxDataIdx}
+      />
       <Library songs={data} openLib={openLib} />
     </div>
   );

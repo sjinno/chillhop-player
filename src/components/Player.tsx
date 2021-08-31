@@ -1,14 +1,21 @@
 import React, { FC, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLessThan, faGreaterThan, faPlayCircle, faPauseCircle } from '@fortawesome/free-solid-svg-icons';
+import { Song } from '../data/musicData';
 
-interface PlayerStatus {
+interface Props {
+    data: Song[],
+    currentSong: Song,
+    setCurrentSong: React.Dispatch<React.SetStateAction<Song>>,
     audio: string,
     isPlaying: boolean,
-    setIsPlaying: any,
+    setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>,
+    songIdx: number,
+    setSongIdx: React.Dispatch<React.SetStateAction<number>>,
+    maxDataIdx: number,
 }
 
-const Player: FC<PlayerStatus> = ({ audio, isPlaying, setIsPlaying }: PlayerStatus): JSX.Element => {
+const Player: FC<Props> = (props: Props): JSX.Element => {
     // State
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
@@ -21,12 +28,12 @@ const Player: FC<PlayerStatus> = ({ audio, isPlaying, setIsPlaying }: PlayerStat
     const playSongHandler = () => {
         // console.log(audioRef.current);
         if (audioRef.current) {
-            if (isPlaying) {
+            if (props.isPlaying) {
                 audioRef.current.pause();
-                setIsPlaying(false);
+                props.setIsPlaying(false);
             } else {
                 audioRef.current.play();
-                setIsPlaying(true);
+                props.setIsPlaying(true);
             }
         }
     };
@@ -51,6 +58,13 @@ const Player: FC<PlayerStatus> = ({ audio, isPlaying, setIsPlaying }: PlayerStat
             audioRef.current.currentTime = value;
         }
         setCurrentTime(value);
+    };
+
+    const skipForwardHandler = () => {
+        const next = props.songIdx + 1;
+        next === props.maxDataIdx ? props.setSongIdx(0) : props.setSongIdx(next);
+        props.setCurrentSong(props.data[props.songIdx]);
+        // console.log(props.songIdx);
     };
     // HANDLERS END HERE ==========
 
@@ -79,14 +93,19 @@ const Player: FC<PlayerStatus> = ({ audio, isPlaying, setIsPlaying }: PlayerStat
                     onClick={playSongHandler}
                     className="player__control__play"
                     size="3x"
-                    icon={isPlaying ? faPauseCircle : faPlayCircle}
+                    icon={props.isPlaying ? faPauseCircle : faPlayCircle}
                 />
-                <FontAwesomeIcon className="player__control__skip-forward" size="2x" icon={faGreaterThan} />
+                <FontAwesomeIcon
+                    onClick={skipForwardHandler}
+                    className="player__control__skip-forward"
+                    size="2x"
+                    icon={faGreaterThan}
+                />
                 <audio
                     onTimeUpdate={timeUpdatedHandler}
                     onLoadedMetadata={initialSongMetaDataHandler}
                     ref={audioRef}
-                    src={audio}>
+                    src={props.audio}>
                 </audio>
             </div>
         </div>

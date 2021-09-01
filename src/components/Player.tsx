@@ -61,10 +61,10 @@ const Player: FC<Props> = (props: Props): JSX.Element => {
     };
 
     const skipForwardHandler = () => {
+        console.log('first', props.songIdx);
         const next = props.songIdx + 1;
         next === props.maxDataIdx ? props.setSongIdx(0) : props.setSongIdx(next);
-        props.setCurrentSong(props.data[props.songIdx]);
-        // console.log(props.songIdx);
+        next === props.maxDataIdx ? props.setCurrentSong(props.data[0]) : props.setCurrentSong(props.data[next]);
     };
     // HANDLERS END HERE ==========
 

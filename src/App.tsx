@@ -28,7 +28,11 @@ function App(): JSX.Element {
         setSongIdx={setSongIdx}
         maxDataIdx={maxDataIdx}
       />
-      <Library songs={data} openLib={openLib} />
+      <Library
+        songs={data}
+        openLib={openLib}
+        setOpenLib={setOpenLib}
+      />
     </div>
   );
 }

@@ -5,9 +5,10 @@ import { Song } from '../data/musicData';
 interface Props {
     songs: Song[],
     openLib: boolean,
+    setOpenLib: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
-const Library: FC<Props> = ({ songs, openLib }: Props): JSX.Element => {
+const Library: FC<Props> = ({ songs, openLib, setOpenLib }: Props): JSX.Element => {
     const style = {
         open: {
             visibility: 'visible',
@@ -21,8 +22,13 @@ const Library: FC<Props> = ({ songs, openLib }: Props): JSX.Element => {
         }
     } as const;
 
+    const closeLibHandler = () => {
+        openLib ? setOpenLib(false) : setOpenLib(true);
+    };
+
     return (
         <div className="library" style={ openLib ? style.open : style.close }>
+            <span onClick={closeLibHandler} className="library__close">&times;</span>
             <div className="library__inner">
                 <h2 className="library__title">Library</h2>
                 {songs.map(song => (<LibrarySong {...song} key={song.id} />))}

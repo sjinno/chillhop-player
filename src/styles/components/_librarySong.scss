@@ -19,7 +19,7 @@
         z-index: -1;
     }
 
-    &:hover::before {
+    &:hover::before, &:active::before {
         opacity: 1;
     }
 

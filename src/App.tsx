@@ -18,6 +18,7 @@ function App(): JSX.Element {
     <div className="App">
       <Card
         songs={songs}
+        setSongs={setSongs}
         currentSong={currentSong}
         setCurrentSong={setCurrentSong}
         openLib={openLib}
@@ -29,6 +30,7 @@ function App(): JSX.Element {
         setSongs={setSongs}
         openLib={openLib}
         setOpenLib={setOpenLib}
+        currentSong={currentSong}
         setCurrentSong={setCurrentSong}
       />
     </div>

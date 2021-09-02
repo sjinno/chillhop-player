@@ -5,6 +5,7 @@ import { Song } from '../data/musicData';
 
 interface Props {
     songs: Song[],
+    setSongs: React.Dispatch<React.SetStateAction<Song[]>>,
     currentSong: Song,
     setCurrentSong: React.Dispatch<React.SetStateAction<Song>>,
     isPlaying: boolean,
@@ -12,7 +13,7 @@ interface Props {
     numOfSongs: number,
 }
 
-const Player: FC<Props> = ({ songs, currentSong, setCurrentSong, isPlaying, setIsPlaying, numOfSongs }: Props): JSX.Element => {
+const Player: FC<Props> = ({ songs, setSongs, currentSong, setCurrentSong, isPlaying, setIsPlaying, numOfSongs }: Props): JSX.Element => {
     // State
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
@@ -52,15 +53,23 @@ const Player: FC<Props> = ({ songs, currentSong, setCurrentSong, isPlaying, setI
         setCurrentTime(value);
     };
 
+    // Helper function
+    const updateSongs = (oldIdx: number, newIdx: number) => {
+        songs[oldIdx].active = false;
+        songs[newIdx].active = true;
+        return songs;
+    };
+
     const skipForwardHandler = () => {
-        const next = currentSong.index + 1;
-        next === numOfSongs ? setCurrentSong(songs[0]) : setCurrentSong(songs[next]);
+        const next = (currentSong.index + 1) === numOfSongs ? 0 : (currentSong.index + 1);
+        setCurrentSong(songs[next]);
+        setSongs(updateSongs(currentSong.index, next));
     };
 
     const skipBackHandler = () => {
-        // console.log('first', songIdx);
-        const prev = currentSong.index - 1;
-        prev === -1 ? setCurrentSong(songs[numOfSongs - 1]) : setCurrentSong(songs[prev]);
+        const prev = (currentSong.index - 1) === -1 ? (numOfSongs - 1) : (currentSong.index - 1);
+        setCurrentSong(songs[prev]);
+        setSongs(updateSongs(currentSong.index, prev));
     };
     // HANDLERS END HERE ==========
 

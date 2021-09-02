@@ -5,18 +5,33 @@ interface Props {
     songs: Song[],
     setSongs: React.Dispatch<React.SetStateAction<Song[]>>,
     song: Song,
+    currentSong: Song,
     setCurrentSong: React.Dispatch<React.SetStateAction<Song>>,
 }
 
-const LibrarySong: FC<Props> = ({ songs, setSongs, song, setCurrentSong }: Props): JSX.Element => {
+const LibrarySong: FC<Props> = ({ songs, setSongs, song, currentSong, setCurrentSong }: Props): JSX.Element => {
     const selectSongHandler = () => {
+        const updatedSongs = songs.map(s => {
+            if (s === song) {
+                return {
+                    ...s,
+                    active: true,
+                };
+            } else {
+                return {
+                    ...s,
+                    active: false,
+                };
+            }
+        });
+        setSongs(updatedSongs);
         setCurrentSong(songs[song.index]);
     };
 
     return (
         <div
             onClick={selectSongHandler}
-            className="librarySong"
+            className={`librarySong ${song.active ? 'librarySong--active' : ''}`}
         >
             <img src={song.cover} alt={song.name} />
             <div className="librarySong__description">

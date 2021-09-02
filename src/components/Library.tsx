@@ -7,10 +7,11 @@ interface Props {
     setSongs: React.Dispatch<React.SetStateAction<Song[]>>,
     openLib: boolean,
     setOpenLib: React.Dispatch<React.SetStateAction<boolean>>,
+    currentSong: Song,
     setCurrentSong: React.Dispatch<React.SetStateAction<Song>>,
 }
 
-const Library: FC<Props> = ({ songs, setSongs, openLib, setOpenLib, setCurrentSong }: Props): JSX.Element => {
+const Library: FC<Props> = ({ songs, setSongs, openLib, setOpenLib, currentSong, setCurrentSong }: Props): JSX.Element => {
     const style = {
         open: {
             visibility: 'visible',
@@ -38,6 +39,7 @@ const Library: FC<Props> = ({ songs, setSongs, openLib, setOpenLib, setCurrentSo
                         songs={songs}
                         setSongs={setSongs}
                         song={song}
+                        currentSong={currentSong}
                         setCurrentSong={setCurrentSong}
                         key={song.id}
                     />

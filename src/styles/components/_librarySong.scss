@@ -36,4 +36,8 @@
     & * {
         font-weight: 400;
     }
+
+    &--active {
+        background-color: rgba($clrBlue, .4);
+    }
 }

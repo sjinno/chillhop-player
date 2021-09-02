@@ -5,6 +5,7 @@ import { Song } from '../data/musicData';
 
 interface Props {
     songs: Song[],
+    setSongs: React.Dispatch<React.SetStateAction<Song[]>>,
     currentSong: Song,
     setCurrentSong: React.Dispatch<React.SetStateAction<Song>>,
     openLib: boolean,
@@ -12,7 +13,7 @@ interface Props {
     numOfSongs: number,
 }
 
-const Card: FC<Props> = ({ songs, currentSong, setCurrentSong, openLib, setOpenLib, numOfSongs }: Props): JSX.Element => {
+const Card: FC<Props> = ({ songs, setSongs, currentSong, setCurrentSong, openLib, setOpenLib, numOfSongs }: Props): JSX.Element => {
     const [isPlaying, setIsPlaying] = useState(false);
 
     return (
@@ -27,6 +28,7 @@ const Card: FC<Props> = ({ songs, currentSong, setCurrentSong, openLib, setOpenL
             <div className="card__bottom">
                 <Player
                     songs={songs}
+                    setSongs={setSongs}
                     currentSong={currentSong}
                     setCurrentSong={setCurrentSong}
                     isPlaying={isPlaying}

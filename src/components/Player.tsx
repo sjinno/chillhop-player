@@ -1,9 +1,10 @@
-import React, { FC, useRef, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLessThan, faGreaterThan, faPlayCircle, faPauseCircle } from '@fortawesome/free-solid-svg-icons';
 import { Song } from '../data/musicData';
 
 interface Props {
+    audioRef: React.MutableRefObject<HTMLAudioElement | null>,
     songs: Song[],
     setSongs: React.Dispatch<React.SetStateAction<Song[]>>,
     currentSong: Song,
@@ -11,16 +12,12 @@ interface Props {
     isPlaying: boolean,
     setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>,
     numOfSongs: number,
+    currentTime: number,
+    setCurrentTime: React.Dispatch<React.SetStateAction<number>>,
+    duration: number,
 }
 
-const Player: FC<Props> = ({ songs, setSongs, currentSong, setCurrentSong, isPlaying, setIsPlaying, numOfSongs }: Props): JSX.Element => {
-    // State
-    const [currentTime, setCurrentTime] = useState(0);
-    const [duration, setDuration] = useState(0);
-
-    // Ref
-    const audioRef = useRef<HTMLAudioElement | null>(null);
-
+const Player: FC<Props> = ({ audioRef, songs, setSongs, currentSong, setCurrentSong, isPlaying, setIsPlaying, numOfSongs, currentTime, setCurrentTime, duration }: Props): JSX.Element => {
     // EVENT HANDLERS ==========
     // Play song
     const playSongHandler = () => {
@@ -33,16 +30,6 @@ const Player: FC<Props> = ({ songs, setSongs, currentSong, setCurrentSong, isPla
                 setIsPlaying(true);
             }
         }
-    };
-
-    const timeUpdatedHandler = (evt: React.ChangeEvent<HTMLAudioElement>) => {
-        const sec = evt.target.currentTime;
-        setCurrentTime(sec);
-    };
-
-    const initialSongMetaDataHandler = (evt: React.ChangeEvent<HTMLAudioElement>) => {
-        const sec = evt.target.duration;
-        setDuration(sec);
     };
 
     const dragHandler = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -111,12 +98,6 @@ const Player: FC<Props> = ({ songs, setSongs, currentSong, setCurrentSong, isPla
                     size="2x"
                     icon={faGreaterThan}
                 />
-                <audio
-                    onTimeUpdate={timeUpdatedHandler}
-                    onLoadedMetadata={initialSongMetaDataHandler}
-                    ref={audioRef}
-                    src={currentSong.audio}>
-                </audio>
             </div>
         </div>
     );

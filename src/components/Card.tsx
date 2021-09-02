@@ -4,6 +4,7 @@ import Player from "./Player";
 import { Song } from '../data/musicData';
 
 interface Props {
+    audioRef: React.MutableRefObject<HTMLAudioElement | null>,
     songs: Song[],
     setSongs: React.Dispatch<React.SetStateAction<Song[]>>,
     currentSong: Song,
@@ -11,9 +12,12 @@ interface Props {
     openLib: boolean,
     setOpenLib: React.Dispatch<React.SetStateAction<boolean>>,
     numOfSongs: number,
+    currentTime: number,
+    setCurrentTime: React.Dispatch<React.SetStateAction<number>>,
+    duration: number,
 }
 
-const Card: FC<Props> = ({ songs, setSongs, currentSong, setCurrentSong, openLib, setOpenLib, numOfSongs }: Props): JSX.Element => {
+const Card: FC<Props> = ({ audioRef, songs, setSongs, currentSong, setCurrentSong, openLib, setOpenLib, numOfSongs, currentTime, setCurrentTime, duration }: Props): JSX.Element => {
     const [isPlaying, setIsPlaying] = useState(false);
 
     return (
@@ -27,6 +31,7 @@ const Card: FC<Props> = ({ songs, setSongs, currentSong, setCurrentSong, openLib
             </div>
             <div className="card__bottom">
                 <Player
+                    audioRef={audioRef}
                     songs={songs}
                     setSongs={setSongs}
                     currentSong={currentSong}
@@ -34,6 +39,9 @@ const Card: FC<Props> = ({ songs, setSongs, currentSong, setCurrentSong, openLib
                     isPlaying={isPlaying}
                     setIsPlaying={setIsPlaying}
                     numOfSongs={numOfSongs}
+                    currentTime={currentTime}
+                    setCurrentTime={setCurrentTime}
+                    duration={duration}
                 />
             </div>
         </div>

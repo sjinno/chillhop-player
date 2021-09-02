@@ -11,19 +11,11 @@ interface Props {
 
 const LibrarySong: FC<Props> = ({ songs, setSongs, song, currentSong, setCurrentSong }: Props): JSX.Element => {
     const selectSongHandler = () => {
-        const updatedSongs = songs.map(s => {
-            if (s === song) {
-                return {
-                    ...s,
-                    active: true,
-                };
-            } else {
-                return {
-                    ...s,
-                    active: false,
-                };
-            }
-        });
+        const updatedSongs = () => {
+            songs[currentSong.index].active = false;
+            songs[song.index].active = true;
+            return songs;
+        };
         setSongs(updatedSongs);
         setCurrentSong(songs[song.index]);
     };
@@ -33,7 +25,9 @@ const LibrarySong: FC<Props> = ({ songs, setSongs, song, currentSong, setCurrent
             onClick={selectSongHandler}
             className={`librarySong ${song.active ? 'librarySong--active' : ''}`}
         >
-            <img src={song.cover} alt={song.name} />
+            <div className="librarySong__img">
+                <img src={song.cover} alt={song.name} />
+            </div>
             <div className="librarySong__description">
                 <h2 className="librarySong__name">{song.name}</h2>
                 <h3>{song.artist}</h3>

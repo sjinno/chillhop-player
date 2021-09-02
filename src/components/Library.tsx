@@ -31,9 +31,11 @@ const Library: FC<Props> = ({ songs, setSongs, openLib, setOpenLib, currentSong,
 
     return (
         <div className="library" style={ openLib ? style.open : style.close }>
-            <span onClick={closeLibHandler} className="library__close">&times;</span>
             <div className="library__inner">
-                <h2 className="library__title">Library</h2>
+                <div className="library__inner__header">
+                    <h2 className="library__title">Library</h2>
+                    <span onClick={closeLibHandler} className="library__close">&times;</span>
+                </div>
                 {songs.map(song => (
                     <LibrarySong
                         songs={songs}

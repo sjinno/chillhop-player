@@ -7,7 +7,8 @@ interface Song {
     audio: string,
     color: string[],
     id: string,
-    active: boolean
+    active: boolean,
+    index: number,
 }
 
 function getMusicData(): Song[] {
@@ -19,6 +20,7 @@ function getMusicData(): Song[] {
             color: ["#205950", "#2ab3bf"],
             id: uuidv4(),
             active: true,
+            index: 0,
         },
         {
             name: "Daylight",
@@ -28,6 +30,7 @@ function getMusicData(): Song[] {
             color: ["#EF8EA9", "#ab417f"],
             id: uuidv4(),
             active: false,
+            index: 1,
         },
         {
             name: "Keep Going",
@@ -37,6 +40,7 @@ function getMusicData(): Song[] {
             color: ["#CD607D", "#c94043"],
             id: uuidv4(),
             active: false,
+            index: 2,
         },
         {
             name: "Nightfall",
@@ -46,6 +50,7 @@ function getMusicData(): Song[] {
             color: ["#EF8EA9", "#ab417f"],
             id: uuidv4(),
             active: false,
+            index: 3,
         },
         {
             name: "Reflection",
@@ -55,6 +60,7 @@ function getMusicData(): Song[] {
             color: ["#CD607D", "#c94043"],
             id: uuidv4(),
             active: false,
+            index: 4,
         },
         {
             name: "Under the City Stars",
@@ -64,6 +70,7 @@ function getMusicData(): Song[] {
             color: ["#205950", "#2ab3bf"],
             id: uuidv4(),
             active: false,
+            index: 5,
         },
         //ADD MORE HERE
         {
@@ -74,6 +81,7 @@ function getMusicData(): Song[] {
             color: ["#EF8EA9", "#ab417f"],
             id: uuidv4(),
             active: false,
+            index: 6,
         },
         {
             name: "Keep Going",
@@ -83,6 +91,7 @@ function getMusicData(): Song[] {
             color: ["#CD607D", "#c94043"],
             id: uuidv4(),
             active: false,
+            index: 7,
         },
         {
             name: "Nightfall",
@@ -92,6 +101,7 @@ function getMusicData(): Song[] {
             color: ["#EF8EA9", "#ab417f"],
             id: uuidv4(),
             active: false,
+            index: 8,
         },
         {
             name: "Reflection",
@@ -101,6 +111,7 @@ function getMusicData(): Song[] {
             color: ["#CD607D", "#c94043"],
             id: uuidv4(),
             active: false,
+            index: 9,
         },
     ];
 }

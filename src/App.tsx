@@ -32,6 +32,9 @@ function App(): JSX.Element {
         songs={data}
         openLib={openLib}
         setOpenLib={setOpenLib}
+        setCurrentSong={setCurrentSong}
+        songIdx={songIdx}
+        setSongIdx={setSongIdx}
       />
     </div>
   );

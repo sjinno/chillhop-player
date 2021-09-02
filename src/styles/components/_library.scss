@@ -43,6 +43,11 @@
         align-items: center;
 
         padding: 1.618rem;
+        cursor: pointer;
+
+        &:hover {
+            opacity: .8;
+        }
     }
 
     &__inner {

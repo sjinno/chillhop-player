@@ -4,18 +4,15 @@ import { faLessThan, faGreaterThan, faPlayCircle, faPauseCircle } from '@fortawe
 import { Song } from '../data/musicData';
 
 interface Props {
-    data: Song[],
+    songs: Song[],
     currentSong: Song,
     setCurrentSong: React.Dispatch<React.SetStateAction<Song>>,
-    audio: string,
     isPlaying: boolean,
     setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>,
-    songIdx: number,
-    setSongIdx: React.Dispatch<React.SetStateAction<number>>,
-    maxDataIdx: number,
+    numOfSongs: number,
 }
 
-const Player: FC<Props> = (props: Props): JSX.Element => {
+const Player: FC<Props> = ({ songs, currentSong, setCurrentSong, isPlaying, setIsPlaying, numOfSongs }: Props): JSX.Element => {
     // State
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
@@ -26,33 +23,28 @@ const Player: FC<Props> = (props: Props): JSX.Element => {
     // EVENT HANDLERS ==========
     // Play song
     const playSongHandler = () => {
-        // console.log(audioRef.current);
         if (audioRef.current) {
-            if (props.isPlaying) {
+            if (isPlaying) {
                 audioRef.current.pause();
-                props.setIsPlaying(false);
+                setIsPlaying(false);
             } else {
                 audioRef.current.play();
-                props.setIsPlaying(true);
+                setIsPlaying(true);
             }
         }
     };
 
     const timeUpdatedHandler = (evt: React.ChangeEvent<HTMLAudioElement>) => {
-        // console.log(evt);
-        // console.log(evt.target.currentTime);
         const sec = evt.target.currentTime;
         setCurrentTime(sec);
     };
 
     const initialSongMetaDataHandler = (evt: React.ChangeEvent<HTMLAudioElement>) => {
-        // console.log(evt.target.duration);
         const sec = evt.target.duration;
         setDuration(sec);
     };
 
     const dragHandler = (evt: React.ChangeEvent<HTMLInputElement>) => {
-        // console.log(evt.target.value);
         const value = parseInt(evt.target.value);
         if (audioRef.current) {
             audioRef.current.currentTime = value;
@@ -61,17 +53,14 @@ const Player: FC<Props> = (props: Props): JSX.Element => {
     };
 
     const skipForwardHandler = () => {
-        // console.log('first', props.songIdx);
-        const next = props.songIdx + 1;
-        next === props.maxDataIdx ? props.setSongIdx(0) : props.setSongIdx(next);
-        next === props.maxDataIdx ? props.setCurrentSong(props.data[0]) : props.setCurrentSong(props.data[next]);
+        const next = currentSong.index + 1;
+        next === numOfSongs ? setCurrentSong(songs[0]) : setCurrentSong(songs[next]);
     };
 
     const skipBackHandler = () => {
-        // console.log('first', props.songIdx);
-        const prev = props.songIdx - 1;
-        prev === -1 ? props.setSongIdx(props.maxDataIdx - 1) : props.setSongIdx(prev);
-        prev === -1 ? props.setCurrentSong(props.data[props.maxDataIdx - 1]) : props.setCurrentSong(props.data[prev]);
+        // console.log('first', songIdx);
+        const prev = currentSong.index - 1;
+        prev === -1 ? setCurrentSong(songs[numOfSongs - 1]) : setCurrentSong(songs[prev]);
     };
     // HANDLERS END HERE ==========
 
@@ -105,7 +94,7 @@ const Player: FC<Props> = (props: Props): JSX.Element => {
                     onClick={playSongHandler}
                     className="player__control__play"
                     size="3x"
-                    icon={props.isPlaying ? faPauseCircle : faPlayCircle}
+                    icon={isPlaying ? faPauseCircle : faPlayCircle}
                 />
                 <FontAwesomeIcon
                     onClick={skipForwardHandler}
@@ -117,7 +106,7 @@ const Player: FC<Props> = (props: Props): JSX.Element => {
                     onTimeUpdate={timeUpdatedHandler}
                     onLoadedMetadata={initialSongMetaDataHandler}
                     ref={audioRef}
-                    src={props.audio}>
+                    src={currentSong.audio}>
                 </audio>
             </div>
         </div>

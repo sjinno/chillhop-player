@@ -4,14 +4,13 @@ import { Song } from '../data/musicData';
 
 interface Props {
     songs: Song[],
+    setSongs: React.Dispatch<React.SetStateAction<Song[]>>,
     openLib: boolean,
     setOpenLib: React.Dispatch<React.SetStateAction<boolean>>,
     setCurrentSong: React.Dispatch<React.SetStateAction<Song>>,
-    songIdx: number,
-    setSongIdx: React.Dispatch<React.SetStateAction<number>>
 }
 
-const Library: FC<Props> = ({ songs, openLib, setOpenLib, setCurrentSong, songIdx, setSongIdx }: Props): JSX.Element => {
+const Library: FC<Props> = ({ songs, setSongs, openLib, setOpenLib, setCurrentSong }: Props): JSX.Element => {
     const style = {
         open: {
             visibility: 'visible',
@@ -37,10 +36,9 @@ const Library: FC<Props> = ({ songs, openLib, setOpenLib, setCurrentSong, songId
                 {songs.map(song => (
                     <LibrarySong
                         songs={songs}
+                        setSongs={setSongs}
                         song={song}
                         setCurrentSong={setCurrentSong}
-                        songIdx={songIdx}
-                        setSongIdx={setSongIdx}
                         key={song.id}
                     />
                 ))}

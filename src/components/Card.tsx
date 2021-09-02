@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import SongInfo from "./SongInfo";
 import Player from "./Player";
 import { Song } from '../data/musicData';
@@ -15,11 +15,11 @@ interface Props {
     currentTime: number,
     setCurrentTime: React.Dispatch<React.SetStateAction<number>>,
     duration: number,
+    isPlaying: boolean,
+    setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
-const Card: FC<Props> = ({ audioRef, songs, setSongs, currentSong, setCurrentSong, openLib, setOpenLib, numOfSongs, currentTime, setCurrentTime, duration }: Props): JSX.Element => {
-    const [isPlaying, setIsPlaying] = useState(false);
-
+const Card: FC<Props> = ({ audioRef, songs, setSongs, currentSong, setCurrentSong, openLib, setOpenLib, numOfSongs, currentTime, setCurrentTime, duration, isPlaying, setIsPlaying }: Props): JSX.Element => {
     return (
         <div className="card">
             <div className="card__top">

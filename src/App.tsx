@@ -12,12 +12,14 @@ function App(): JSX.Element {
   // Ref
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  // State
   const [songs, setSongs] = useState<Song[]>(getMusicData());
   const [currentSong, setCurrentSong] = useState<Song>(songs[0]);
   const [openLib, setOpenLib] = useState<boolean>(false);
   const numOfSongs = songs.length;
+  
+  const [isPlaying, setIsPlaying] = useState(false);
 
-  // State
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
@@ -45,14 +47,18 @@ function App(): JSX.Element {
         currentTime={currentTime}
         setCurrentTime={setCurrentTime}
         duration={duration}
+        isPlaying={isPlaying}
+        setIsPlaying={setIsPlaying}
       />
       <Library
+        audioRef={audioRef}
         songs={songs}
         setSongs={setSongs}
         openLib={openLib}
         setOpenLib={setOpenLib}
         currentSong={currentSong}
         setCurrentSong={setCurrentSong}
+        isPlaying={isPlaying}
       />
       <audio
         onTimeUpdate={timeUpdatedHandler}

@@ -2,14 +2,16 @@ import { FC } from 'react';
 import { Song } from '../data/musicData';
 
 interface Props {
+    audioRef: React.MutableRefObject<HTMLAudioElement | null>,
     songs: Song[],
     setSongs: React.Dispatch<React.SetStateAction<Song[]>>,
     song: Song,
     currentSong: Song,
     setCurrentSong: React.Dispatch<React.SetStateAction<Song>>,
+    isPlaying: boolean
 }
 
-const LibrarySong: FC<Props> = ({ songs, setSongs, song, currentSong, setCurrentSong }: Props): JSX.Element => {
+const LibrarySong: FC<Props> = ({ audioRef, songs, setSongs, song, currentSong, setCurrentSong, isPlaying }: Props): JSX.Element => {
     const selectSongHandler = () => {
         const updatedSongs = () => {
             songs[currentSong.index].active = false;
@@ -18,6 +20,14 @@ const LibrarySong: FC<Props> = ({ songs, setSongs, song, currentSong, setCurrent
         };
         setSongs(updatedSongs);
         setCurrentSong(songs[song.index]);
+        console.log(isPlaying);
+        if (isPlaying) {
+            if (audioRef.current) {
+                audioRef.current.play().then(() => {
+                    audioRef.current?.play();
+                });
+            }
+        }
     };
 
     return (

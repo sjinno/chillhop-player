@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLessThan, faGreaterThan, faPlayCircle, faPauseCircle } from '@fortawesome/free-solid-svg-icons';
 import { Song } from '../data/musicData';
@@ -47,16 +47,29 @@ const Player: FC<Props> = ({ audioRef, songs, setSongs, currentSong, setCurrentS
         return songs;
     };
 
+    const playAudio = () => {
+        if (isPlaying) {
+            if (audioRef.current) {
+                audioRef.current.play().then(() => {
+                    audioRef.current?.play();
+                });
+            }
+        }
+    };
+    // ///
+
     const skipForwardHandler = () => {
         const next = (currentSong.index + 1) === numOfSongs ? 0 : (currentSong.index + 1);
         setCurrentSong(songs[next]);
         setSongs(updateSongs(currentSong.index, next));
+        playAudio();
     };
 
     const skipBackHandler = () => {
         const prev = (currentSong.index - 1) === -1 ? (numOfSongs - 1) : (currentSong.index - 1);
         setCurrentSong(songs[prev]);
         setSongs(updateSongs(currentSong.index, prev));
+        playAudio();
     };
     // HANDLERS END HERE ==========
 

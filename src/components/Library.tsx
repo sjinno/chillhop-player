@@ -3,15 +3,17 @@ import LibrarySong from "./LibrarySong";
 import { Song } from '../data/musicData';
 
 interface Props {
+    audioRef: React.MutableRefObject<HTMLAudioElement | null>,
     songs: Song[],
     setSongs: React.Dispatch<React.SetStateAction<Song[]>>,
     openLib: boolean,
     setOpenLib: React.Dispatch<React.SetStateAction<boolean>>,
     currentSong: Song,
     setCurrentSong: React.Dispatch<React.SetStateAction<Song>>,
+    isPlaying: boolean,
 }
 
-const Library: FC<Props> = ({ songs, setSongs, openLib, setOpenLib, currentSong, setCurrentSong }: Props): JSX.Element => {
+const Library: FC<Props> = ({ audioRef, songs, setSongs, openLib, setOpenLib, currentSong, setCurrentSong, isPlaying }: Props): JSX.Element => {
     const style = {
         open: {
             visibility: 'visible',
@@ -38,11 +40,13 @@ const Library: FC<Props> = ({ songs, setSongs, openLib, setOpenLib, currentSong,
                 </div>
                 {songs.map(song => (
                     <LibrarySong
+                        audioRef={audioRef}
                         songs={songs}
                         setSongs={setSongs}
                         song={song}
                         currentSong={currentSong}
                         setCurrentSong={setCurrentSong}
+                        isPlaying={isPlaying}
                         key={song.id}
                     />
                 ))}

@@ -61,10 +61,17 @@ const Player: FC<Props> = (props: Props): JSX.Element => {
     };
 
     const skipForwardHandler = () => {
-        console.log('first', props.songIdx);
+        // console.log('first', props.songIdx);
         const next = props.songIdx + 1;
         next === props.maxDataIdx ? props.setSongIdx(0) : props.setSongIdx(next);
         next === props.maxDataIdx ? props.setCurrentSong(props.data[0]) : props.setCurrentSong(props.data[next]);
+    };
+
+    const skipBackHandler = () => {
+        // console.log('first', props.songIdx);
+        const prev = props.songIdx - 1;
+        prev === -1 ? props.setSongIdx(props.maxDataIdx - 1) : props.setSongIdx(prev);
+        prev === -1 ? props.setCurrentSong(props.data[props.maxDataIdx - 1]) : props.setCurrentSong(props.data[prev]);
     };
     // HANDLERS END HERE ==========
 
@@ -88,7 +95,12 @@ const Player: FC<Props> = (props: Props): JSX.Element => {
                 <p>{formatTime(duration)}</p>
             </div>
             <div className="player__control">
-                <FontAwesomeIcon className="player__control__skip-back" size="2x" icon={faLessThan} />
+                <FontAwesomeIcon
+                    onClick={skipBackHandler}
+                    className="player__control__skip-back"
+                    size="2x"
+                    icon={faLessThan}
+                />
                 <FontAwesomeIcon
                     onClick={playSongHandler}
                     className="player__control__play"

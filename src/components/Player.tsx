@@ -57,14 +57,14 @@ const Player: FC<Props> = ({ audioRef, songs, setSongs, currentSong, setCurrentS
 
         if (forward) {
             const next = (currentSong.index + 1) === numOfSongs ? 0 : (currentSong.index + 1);
-            await setCurrentSong(songs[next]);
             setSongs(updateSongs(currentSong.index, next));
+            await setCurrentSong(songs[next]);
             if (isPlaying) audioRef.current?.play();
             return;
         } else {
             const prev = (currentSong.index - 1) === -1 ? (numOfSongs - 1) : (currentSong.index - 1);
-            await setCurrentSong(songs[prev]);
             setSongs(updateSongs(currentSong.index, prev));
+            await setCurrentSong(songs[prev]);
             if (isPlaying) audioRef.current?.play();
             return;
         }

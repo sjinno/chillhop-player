@@ -21,14 +21,12 @@ const Player: FC<Props> = ({ audioRef, songs, setSongs, currentSong, setCurrentS
     // EVENT HANDLERS ==========
     // Play song
     const playSongHandler = () => {
-        if (audioRef.current) {
-            if (isPlaying) {
-                audioRef.current.pause();
-                setIsPlaying(false);
-            } else {
-                audioRef.current.play();
-                setIsPlaying(true);
-            }
+        if (isPlaying) {
+            audioRef.current?.pause();
+            setIsPlaying(false);
+        } else {
+            audioRef.current?.play();
+            setIsPlaying(true);
         }
     };
 
@@ -47,30 +45,30 @@ const Player: FC<Props> = ({ audioRef, songs, setSongs, currentSong, setCurrentS
         return songs;
     };
 
-    const playAudio = () => {
-        if (isPlaying) {
-            if (audioRef.current) {
-                audioRef.current.play().then(() => {
-                    audioRef.current?.play();
-                });
+    const songSkippedHandler = async (evt: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+        const classes = evt.currentTarget.classList;
+        let forward = false;
+        for (let i = 0; i < classes.length; i++) {
+            if (classes[i] === 'forward') {
+                forward = true;
+                break;
             }
         }
-    };
-    // ///
 
-    const skipForwardHandler = () => {
-        const next = (currentSong.index + 1) === numOfSongs ? 0 : (currentSong.index + 1);
-        setCurrentSong(songs[next]);
-        setSongs(updateSongs(currentSong.index, next));
-        playAudio();
-    };
-
-    const skipBackHandler = () => {
-        const prev = (currentSong.index - 1) === -1 ? (numOfSongs - 1) : (currentSong.index - 1);
-        setCurrentSong(songs[prev]);
-        setSongs(updateSongs(currentSong.index, prev));
-        playAudio();
-    };
+        if (forward) {
+            const next = (currentSong.index + 1) === numOfSongs ? 0 : (currentSong.index + 1);
+            await setCurrentSong(songs[next]);
+            setSongs(updateSongs(currentSong.index, next));
+            if (isPlaying) audioRef.current?.play();
+            return;
+        } else {
+            const prev = (currentSong.index - 1) === -1 ? (numOfSongs - 1) : (currentSong.index - 1);
+            await setCurrentSong(songs[prev]);
+            setSongs(updateSongs(currentSong.index, prev));
+            if (isPlaying) audioRef.current?.play();
+            return;
+        }
+    }
     // HANDLERS END HERE ==========
 
     const formatTime = (sec: number): string => {
@@ -94,8 +92,8 @@ const Player: FC<Props> = ({ audioRef, songs, setSongs, currentSong, setCurrentS
             </div>
             <div className="player__control">
                 <FontAwesomeIcon
-                    onClick={skipBackHandler}
-                    className="player__control__skip-back"
+                    onClick={songSkippedHandler}
+                    className="player__control__skip-back backward"
                     size="2x"
                     icon={faLessThan}
                 />
@@ -106,8 +104,8 @@ const Player: FC<Props> = ({ audioRef, songs, setSongs, currentSong, setCurrentS
                     icon={isPlaying ? faPauseCircle : faPlayCircle}
                 />
                 <FontAwesomeIcon
-                    onClick={skipForwardHandler}
-                    className="player__control__skip-forward"
+                    onClick={songSkippedHandler}
+                    className="player__control__skip-forward forward"
                     size="2x"
                     icon={faGreaterThan}
                 />

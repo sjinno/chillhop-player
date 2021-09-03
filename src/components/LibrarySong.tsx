@@ -8,26 +8,19 @@ interface Props {
     song: Song,
     currentSong: Song,
     setCurrentSong: React.Dispatch<React.SetStateAction<Song>>,
-    isPlaying: boolean
+    isPlaying: boolean,
 }
 
 const LibrarySong: FC<Props> = ({ audioRef, songs, setSongs, song, currentSong, setCurrentSong, isPlaying }: Props): JSX.Element => {
-    const selectSongHandler = () => {
+    const selectSongHandler = async () => {
         const updatedSongs = () => {
             songs[currentSong.index].active = false;
             songs[song.index].active = true;
             return songs;
         };
         setSongs(updatedSongs);
-        setCurrentSong(songs[song.index]);
-        console.log(isPlaying);
-        if (isPlaying) {
-            if (audioRef.current) {
-                audioRef.current.play().then(() => {
-                    audioRef.current?.play();
-                });
-            }
-        }
+        await setCurrentSong(songs[song.index]);
+        if (isPlaying) audioRef.current?.play();
     };
 
     return (

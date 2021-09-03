@@ -17,7 +17,7 @@ function App(): JSX.Element {
   const [currentSong, setCurrentSong] = useState<Song>(songs[0]);
   const [openLib, setOpenLib] = useState<boolean>(false);
   const numOfSongs = songs.length;
-  
+
   const [isPlaying, setIsPlaying] = useState(false);
 
   const [currentTime, setCurrentTime] = useState(0);
@@ -31,6 +31,20 @@ function App(): JSX.Element {
   const initialSongMetaDataHandler = (evt: React.ChangeEvent<HTMLAudioElement>) => {
       const sec = evt.target.duration;
       setDuration(sec);
+  };
+
+      // Helper function
+    const updateSongs = (oldIdx: number, newIdx: number) => {
+      songs[oldIdx].active = false;
+      songs[newIdx].active = true;
+      return songs;
+    };
+
+  const songEndedHandler = async () => {
+    const next = (currentSong.index + 1) === numOfSongs ? 0 : (currentSong.index + 1);
+    await setCurrentSong(songs[next]);
+    setSongs(updateSongs(currentSong.index, next));
+    if (isPlaying) audioRef.current?.play();
   };
 
   return (
@@ -63,8 +77,10 @@ function App(): JSX.Element {
       <audio
         onTimeUpdate={timeUpdatedHandler}
         onLoadedMetadata={initialSongMetaDataHandler}
+        onEnded={songEndedHandler}
         ref={audioRef}
-        src={currentSong.audio}>
+        src={currentSong.audio}
+      >
       </audio>
     </div>
   );
